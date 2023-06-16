@@ -10,7 +10,7 @@ Project Flutter "Movie Show" adalah aplikasi untuk menampilkan daftar film dan T
 
 1. Pastikan sudah terinstal Flutter di komputer Anda. Jika belum, ikuti panduan instalasi Flutter di [situs resmi Flutter](https://flutter.dev/docs/get-started/install).
 2. Clone repository ini ke komputer Anda dengan perintah berikut: 
-"git clone https://github.com/namauser/show-movie-flutter.git"
+"git clone https://github.com/diajarkoding/movie_show.git"
 3. Masuk ke direktori proyek: 
 "cd show_movie"
 4. Jalankan perintah berikut untuk menginstal semua dependensi yang dibutuhkan: 
