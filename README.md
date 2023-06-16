@@ -9,15 +9,20 @@ Project Flutter "Show Movie" adalah aplikasi untuk menampilkan daftar film dan T
 ## Instalasi
 
 1. Pastikan sudah terinstal Flutter di komputer Anda. Jika belum, ikuti panduan instalasi Flutter di [situs resmi Flutter](https://flutter.dev/docs/get-started/install).
-2. Clone repository ini ke komputer Anda dengan perintah berikut: git clone https://github.com/namauser/show-movie-flutter.git
-3. Masuk ke direktori proyek: cd show_movie
-4. Jalankan perintah berikut untuk menginstal semua dependensi yang dibutuhkan: flutter pub get
+2. Clone repository ini ke komputer Anda dengan perintah berikut: 
+g"it clone https://github.com/namauser/show-movie-flutter.git"
+3. Masuk ke direktori proyek: 
+"cd show_movie"
+4. Jalankan perintah berikut untuk menginstal semua dependensi yang dibutuhkan: 
+"flutter pub get"
 
 ## Menjalankan Aplikasi
 
-1. Pastikan Anda sudah terhubung ke emulator atau perangkat fisik yang dapat dijalankan menggunakan perintah berikut: flutter devices
+1. Pastikan Anda sudah terhubung ke emulator atau perangkat fisik yang dapat dijalankan menggunakan perintah berikut: 
+"flutter devices"
 2. Pilih salah satu perangkat yang terdaftar.
-3. Jalankan aplikasi dengan perintah berikut: flutter run atau F5
+3. Jalankan aplikasi dengan perintah berikut: 
+"flutter run atau F5"
 
 
 
