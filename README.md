@@ -4,13 +4,13 @@ A new Flutter project.
 
 ## Getting Started
 
-Project Flutter "Show Movie" adalah aplikasi untuk menampilkan daftar film dan TV Series beserta detailnya. Aplikasi ini dibangun menggunakan Flutter framework.
+Project Flutter "Movie Show" adalah aplikasi untuk menampilkan daftar film dan TV Series beserta detailnya. Aplikasi ini dibangun menggunakan Flutter framework.
 
 ## Instalasi
 
 1. Pastikan sudah terinstal Flutter di komputer Anda. Jika belum, ikuti panduan instalasi Flutter di [situs resmi Flutter](https://flutter.dev/docs/get-started/install).
 2. Clone repository ini ke komputer Anda dengan perintah berikut: 
-g"it clone https://github.com/namauser/show-movie-flutter.git"
+"git clone https://github.com/namauser/show-movie-flutter.git"
 3. Masuk ke direktori proyek: 
 "cd show_movie"
 4. Jalankan perintah berikut untuk menginstal semua dependensi yang dibutuhkan: 
