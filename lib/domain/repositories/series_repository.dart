@@ -10,4 +10,8 @@ abstract class SeriesRepository {
   Future<Either<Failure, SeriesDetail>> getSeriesDetail(int id);
   Future<Either<Failure, List<Series>>> getSeriesRecommendations(int id);
   Future<Either<Failure, List<Series>>> searchSeries(String query);
+  Future<Either<Failure, String>> saveWatchlistSeries(SeriesDetail series);
+  Future<Either<Failure, String>> removeWatchlistSeries(SeriesDetail series);
+  Future<bool> isAddedToWatchlistSeries(int id);
+  Future<Either<Failure, List<Series>>> getWatchlistSeries();
 }

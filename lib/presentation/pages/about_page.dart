@@ -1,6 +1,5 @@
 // ignore_for_file: constant_identifier_names
 
-import 'package:movie_show/common/constants.dart';
 import 'package:flutter/material.dart';
 
 class AboutPage extends StatelessWidget {
@@ -11,37 +10,28 @@ class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Column(
-            children: [
-              Expanded(
-                child: Container(
-                  color: kPrussianBlue,
-                  child: Center(
-                    child: Image.asset('assets/movie-show-bg.png'),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.all(32.0),
-                  color: kMikadoYellow,
-                  child: const Text(
-                    'Movie Show merupakan sebuah aplikasi katalog Film dan TV Series.',
-                    style: TextStyle(color: Colors.white, fontSize: 16),
-                    textAlign: TextAlign.justify,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          SafeArea(
-            child: IconButton(
-              onPressed: () => Navigator.pop(context),
-              icon: const Icon(Icons.arrow_back),
+          Center(
+            child: Image.asset(
+              'assets/movie-show-bg-2.png',
+              width: 150,
+              height: 150,
             ),
-          )
+          ),
+          const SizedBox(
+            height: 50,
+          ),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Text(
+              'Movie Show merupakan sebuah aplikasi katalog Film dan TV Series.',
+              style: TextStyle(color: Colors.white, fontSize: 16),
+              textAlign: TextAlign.center,
+            ),
+          ),
         ],
       ),
     );

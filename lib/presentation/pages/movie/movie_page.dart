@@ -1,26 +1,24 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:movie_show/common/constants.dart';
 import 'package:movie_show/domain/entities/movie.dart';
-import 'package:movie_show/presentation/pages/about_page.dart';
-import 'package:movie_show/presentation/pages/movie_detail_page.dart';
-import 'package:movie_show/presentation/pages/now_playing_movies_page.dart';
-import 'package:movie_show/presentation/pages/popular_movies_page.dart';
-import 'package:movie_show/presentation/pages/search_page.dart';
-import 'package:movie_show/presentation/pages/series/series_page.dart';
-import 'package:movie_show/presentation/pages/top_rated_movies_page.dart';
+import 'package:movie_show/presentation/pages/movie/movie_detail_page.dart';
+import 'package:movie_show/presentation/pages/movie/now_playing_movies_page.dart';
+import 'package:movie_show/presentation/pages/movie/popular_movies_page.dart';
+import 'package:movie_show/presentation/pages/movie/search_page.dart';
+import 'package:movie_show/presentation/pages/movie/top_rated_movies_page.dart';
 import 'package:movie_show/presentation/provider/movie_list_notifier.dart';
 import 'package:movie_show/common/state_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class HomeMoviePage extends StatefulWidget {
-  const HomeMoviePage({super.key});
+class MoviePage extends StatefulWidget {
+  const MoviePage({super.key});
 
   @override
-  HomeMoviePageState createState() => HomeMoviePageState();
+  MoviePageState createState() => MoviePageState();
 }
 
-class HomeMoviePageState extends State<HomeMoviePage> {
+class MoviePageState extends State<MoviePage> {
   @override
   void initState() {
     super.initState();
@@ -34,42 +32,6 @@ class HomeMoviePageState extends State<HomeMoviePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        child: Column(
-          children: [
-            const UserAccountsDrawerHeader(
-              currentAccountPicture: CircleAvatar(
-                radius: 20,
-                backgroundColor: Colors.white,
-                child: Icon(Icons.person),
-              ),
-              accountName: Text('Iskandar Muhaemin'),
-              accountEmail: Text('iskandar@gmail.com'),
-            ),
-            ListTile(
-              leading: const Icon(Icons.movie),
-              title: const Text('Movies'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.movie),
-              title: const Text('Series'),
-              onTap: () {
-                Navigator.pushNamed(context, SeriesPage.ROUTE_NAME);
-              },
-            ),
-            ListTile(
-              onTap: () {
-                Navigator.pushNamed(context, AboutPage.ROUTE_NAME);
-              },
-              leading: const Icon(Icons.info_outline),
-              title: const Text('About'),
-            ),
-          ],
-        ),
-      ),
       appBar: AppBar(
         title: const Text('Movie'),
         actions: [

@@ -1,50 +1,50 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:movie_show/common/state_enum.dart';
-import 'package:movie_show/presentation/provider/popular_movies_notifier.dart';
+import 'package:movie_show/presentation/provider/movie_list_notifier.dart';
 import 'package:movie_show/presentation/widgets/movie_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class PopularMoviesPage extends StatefulWidget {
-  static const ROUTE_NAME = '/popular-movie';
+class TopRatedMoviesPage extends StatefulWidget {
+  static const ROUTE_NAME = '/top-rated-movie';
 
-  const PopularMoviesPage({super.key});
+  const TopRatedMoviesPage({super.key});
 
   @override
-  PopularMoviesPageState createState() => PopularMoviesPageState();
+  TopRatedMoviesPageState createState() => TopRatedMoviesPageState();
 }
 
-class PopularMoviesPageState extends State<PopularMoviesPage> {
+class TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
   @override
   void initState() {
     super.initState();
     Future.microtask(() =>
-        Provider.of<PopularMoviesNotifier>(context, listen: false)
-            .fetchPopularMovies());
+        Provider.of<MovieListNotifier>(context, listen: false)
+            .fetchTopRatedMovies());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Popular Movies'),
+        title: const Text('Top Rated Movies'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<PopularMoviesNotifier>(
+        child: Consumer<MovieListNotifier>(
           builder: (context, data, child) {
-            if (data.state == RequestState.Loading) {
+            if (data.topRatedMoviesState == RequestState.Loading) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.state == RequestState.Loaded) {
+            } else if (data.topRatedMoviesState == RequestState.Loaded) {
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final movie = data.movies[index];
+                  final movie = data.topRatedMovies[index];
                   return MovieCard(movie);
                 },
-                itemCount: data.movies.length,
+                itemCount: data.topRatedMovies.length,
               );
             } else {
               return Center(

@@ -1,8 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:movie_show/common/constants.dart';
-import 'package:movie_show/presentation/pages/home_movie_page.dart';
+import 'package:movie_show/presentation/pages/dashboard_page.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -18,7 +17,7 @@ class SplashPageState extends State<SplashPage> {
     Timer(const Duration(seconds: 2), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const HomeMoviePage()),
+        MaterialPageRoute(builder: (context) => const DashboardPage()),
       );
     });
   }

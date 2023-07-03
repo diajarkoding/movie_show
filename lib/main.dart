@@ -1,14 +1,13 @@
 import 'dart:io';
-
 import 'package:movie_show/common/certificate.dart';
 import 'package:movie_show/common/constants.dart';
 import 'package:movie_show/common/utils.dart';
 import 'package:movie_show/presentation/pages/about_page.dart';
-import 'package:movie_show/presentation/pages/movie_detail_page.dart';
-import 'package:movie_show/presentation/pages/home_movie_page.dart';
-import 'package:movie_show/presentation/pages/now_playing_movies_page.dart';
-import 'package:movie_show/presentation/pages/popular_movies_page.dart';
-import 'package:movie_show/presentation/pages/search_page.dart';
+import 'package:movie_show/presentation/pages/movie/movie_detail_page.dart';
+import 'package:movie_show/presentation/pages/movie/movie_page.dart';
+import 'package:movie_show/presentation/pages/movie/now_playing_movies_page.dart';
+import 'package:movie_show/presentation/pages/movie/popular_movies_page.dart';
+import 'package:movie_show/presentation/pages/movie/search_page.dart';
 import 'package:movie_show/presentation/pages/series/now_playing_series_page.dart';
 import 'package:movie_show/presentation/pages/series/popular_series_page.dart';
 import 'package:movie_show/presentation/pages/series/search_series_page.dart';
@@ -16,21 +15,19 @@ import 'package:movie_show/presentation/pages/series/series_detail_page.dart';
 import 'package:movie_show/presentation/pages/series/series_page.dart';
 import 'package:movie_show/presentation/pages/series/top_rated_series_page.dart';
 import 'package:movie_show/presentation/pages/splash_page.dart';
-import 'package:movie_show/presentation/pages/top_rated_movies_page.dart';
+import 'package:movie_show/presentation/pages/movie/top_rated_movies_page.dart';
 import 'package:movie_show/presentation/provider/movie_detail_notifier.dart';
 import 'package:movie_show/presentation/provider/movie_list_notifier.dart';
 import 'package:movie_show/presentation/provider/movie_search_notifier.dart';
-import 'package:movie_show/presentation/provider/popular_movies_notifier.dart';
-import 'package:movie_show/presentation/provider/series/popular_series_notifier.dart';
 import 'package:movie_show/presentation/provider/series/series_detail_notifier.dart';
 import 'package:movie_show/presentation/provider/series/series_list_notifier.dart';
 import 'package:movie_show/presentation/provider/series/series_search_notifier.dart';
-import 'package:movie_show/presentation/provider/series/top_rated_series_notifier.dart';
-import 'package:movie_show/presentation/provider/top_rated_movies_notifier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_show/presentation/provider/watchlist_movie_notifier.dart';
 import 'package:provider/provider.dart';
 import 'package:movie_show/injection.dart' as di;
+import 'presentation/provider/series/watchlist_series_notifier.dart';
 
 void main() {
   di.init();
@@ -56,10 +53,7 @@ class MyApp extends StatelessWidget {
           create: (_) => di.locator<MovieSearchNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<TopRatedMoviesNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<PopularMoviesNotifier>(),
+          create: (_) => di.locator<WatchlistMovieNotifier>(),
         ),
 
         // Series
@@ -73,10 +67,7 @@ class MyApp extends StatelessWidget {
           create: (_) => di.locator<SeriesSearchNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<TopRatedSeriesNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<PopularSeriesNotifier>(),
+          create: (_) => di.locator<WatchlistSeriesNotifier>(),
         ),
 
         ChangeNotifierProvider(
@@ -100,7 +91,7 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
             case '/home':
-              return MaterialPageRoute(builder: (_) => const HomeMoviePage());
+              return MaterialPageRoute(builder: (_) => const MoviePage());
             case PopularMoviesPage.ROUTE_NAME:
               return CupertinoPageRoute(
                   builder: (_) => const PopularMoviesPage());
@@ -138,7 +129,6 @@ class MyApp extends StatelessWidget {
             case SearchSeriesPage.ROUTE_NAME:
               return MaterialPageRoute(
                   builder: (_) => const SearchSeriesPage());
-
             case NowPlayingSeriesPage.ROUTE_NAME:
               return MaterialPageRoute(
                   builder: (_) => const NowPlayingSeriesPage());

@@ -1,7 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:movie_show/common/state_enum.dart';
-import 'package:movie_show/presentation/provider/series/popular_series_notifier.dart';
+import 'package:movie_show/presentation/provider/series/series_list_notifier.dart';
 import 'package:movie_show/presentation/widgets/series_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +20,7 @@ class PopularSeriesPageState extends State<PopularSeriesPage> {
   void initState() {
     super.initState();
     Future.microtask(() =>
-        Provider.of<PopularSeriesNotifier>(context, listen: false)
+        Provider.of<SeriesListNotifier>(context, listen: false)
             .fetchPopularSeries());
   }
 
@@ -32,19 +32,19 @@ class PopularSeriesPageState extends State<PopularSeriesPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<PopularSeriesNotifier>(
+        child: Consumer<SeriesListNotifier>(
           builder: (context, data, child) {
-            if (data.state == RequestState.Loading) {
+            if (data.popularSeriesState == RequestState.Loading) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.state == RequestState.Loaded) {
+            } else if (data.popularSeriesState == RequestState.Loaded) {
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final series = data.series[index];
+                  final series = data.popularSeries[index];
                   return SeriesCard(series);
                 },
-                itemCount: data.series.length,
+                itemCount: data.popularSeries.length,
               );
             } else {
               return Center(

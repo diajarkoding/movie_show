@@ -1,4 +1,4 @@
-// ignore_for_file: constant_identifier_names
+// ignore_for_file: constant_identifier_names, use_build_context_synchronously
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:movie_show/common/constants.dart';
@@ -9,6 +9,7 @@ import 'package:movie_show/presentation/provider/series/series_detail_notifier.d
 import 'package:movie_show/presentation/provider/series/series_list_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:movie_show/presentation/provider/series/watchlist_series_notifier.dart';
 import 'package:provider/provider.dart';
 
 class SeriesDetailPage extends StatefulWidget {
@@ -26,35 +27,37 @@ class SeriesDetailPageState extends State<SeriesDetailPage> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      Provider.of<SeriesListNotifier>(context, listen: false)
-          .fetctSeriesRecommendations(widget.id);
       Provider.of<SeriesDetailNotifier>(context, listen: false)
           .fetchSeriesDetail(widget.id);
+      Provider.of<WatchlistSeriesNotifier>(context, listen: false)
+          .loadWatchlistStatus(widget.id);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer2<SeriesListNotifier, SeriesDetailNotifier>(
-        builder: (context, provider1, provider2, _) {
-          if (provider1.recommendationState == RequestState.Loading ||
-              provider2.seriesDetailState == RequestState.Loading) {
+      body: Consumer2<SeriesDetailNotifier, WatchlistSeriesNotifier>(
+        builder: (context, detail, watchlist, _) {
+          if (detail.recommendationState == RequestState.Loading ||
+              detail.seriesDetailState == RequestState.Loading) {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (provider1.recommendationState == RequestState.Loaded ||
-              provider2.seriesDetailState == RequestState.Loaded) {
-            final seriesRecommendation = provider1.seriesRecommendations;
-            final seriesDetail = provider2.seriesDetail;
+          } else if (detail.recommendationState == RequestState.Loaded ||
+              detail.seriesDetailState == RequestState.Loaded) {
+            final seriesRecommendation = detail.seriesRecommendations;
+            final seriesDetail = detail.seriesDetail;
+            final isAddedWatchlist = watchlist.isAddedToWatchlist;
             return SafeArea(
               child: DetailContent(
                 seriesDetail,
                 seriesRecommendation,
+                isAddedWatchlist,
               ),
             );
           } else {
-            return Text('${provider1.message}\n${provider2.message}');
+            return Text('${detail.message}\n${detail.message}');
           }
         },
       ),
@@ -65,8 +68,10 @@ class SeriesDetailPageState extends State<SeriesDetailPage> {
 class DetailContent extends StatelessWidget {
   final SeriesDetail series;
   final List<Series> recommendations;
+  final bool isAddedWatchlist;
 
-  const DetailContent(this.series, this.recommendations, {super.key});
+  const DetailContent(this.series, this.recommendations, this.isAddedWatchlist,
+      {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -109,12 +114,50 @@ class DetailContent extends StatelessWidget {
                               style: kHeading5,
                             ),
                             ElevatedButton(
-                              onPressed: () {},
-                              child: const Row(
+                              onPressed: () async {
+                                if (!isAddedWatchlist) {
+                                  await Provider.of<WatchlistSeriesNotifier>(
+                                          context,
+                                          listen: false)
+                                      .addWatchlist(series);
+                                } else {
+                                  await Provider.of<WatchlistSeriesNotifier>(
+                                          context,
+                                          listen: false)
+                                      .removeFromWatchlist(series);
+                                }
+
+                                final message =
+                                    Provider.of<WatchlistSeriesNotifier>(
+                                            context,
+                                            listen: false)
+                                        .message;
+
+                                if (message ==
+                                        WatchlistSeriesNotifier
+                                            .watchlistAddSuccessMessage ||
+                                    message ==
+                                        WatchlistSeriesNotifier
+                                            .watchlistRemoveSuccessMessage) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text(message)));
+                                } else {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          content: Text(message),
+                                        );
+                                      });
+                                }
+                              },
+                              child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Icon(Icons.add),
-                                  Text('Watchlist'),
+                                  isAddedWatchlist
+                                      ? const Icon(Icons.check)
+                                      : const Icon(Icons.add),
+                                  const Text('Watchlist'),
                                 ],
                               ),
                             ),
