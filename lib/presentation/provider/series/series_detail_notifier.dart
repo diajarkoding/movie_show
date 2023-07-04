@@ -52,9 +52,10 @@ class SeriesDetailNotifier extends ChangeNotifier {
             _recommendationState = RequestState.Error;
             _message = failure.message;
           },
-          (movies) {
+          (series) {
             _recommendationState = RequestState.Loaded;
-            _seriesRecommendations = movies;
+            _seriesRecommendations = series;
+            notifyListeners();
           },
         );
         _seriesDetailState = RequestState.Loaded;

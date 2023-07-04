@@ -6,7 +6,6 @@ import 'package:movie_show/domain/entities/series.dart';
 import 'package:movie_show/domain/entities/series_detail.dart';
 import 'package:movie_show/common/state_enum.dart';
 import 'package:movie_show/presentation/provider/series/series_detail_notifier.dart';
-import 'package:movie_show/presentation/provider/series/series_list_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:movie_show/presentation/provider/series/watchlist_series_notifier.dart';
@@ -233,7 +232,7 @@ class DetailContent extends StatelessWidget {
                               'Recommendations',
                               style: kHeading6,
                             ),
-                            Consumer<SeriesListNotifier>(
+                            Consumer<SeriesDetailNotifier>(
                               builder: (context, data, child) {
                                 if (data.recommendationState ==
                                     RequestState.Loading) {
